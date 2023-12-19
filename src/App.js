@@ -1,10 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import Item from './src/components/Item';
-import Detail from './src/components/Detail';
-import Form from './src/components/Form';
-  
+import Item from './components/Item';
+import Detail from './components/Detail';
+import Form from './components/Form';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+
 const App = () => {
   const [items, setItems] = useState([]);
 
@@ -29,29 +30,39 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/items">Items</Link></li>
-          </ul>
-        </nav>
+    <BrowserRouter>
+    <Header/>
+    <Routes>
+      <Route path='/' element={<h2>Home</h2>} />
+      <Route path="/items" element={<Item items={items} handleAddItem={handleAddItem} handleDeleteItem={handleDeleteItem}  />} />
+      {/* <Route path="/items/:id" element={<Detail item={items}  />} /> */}
+    </Routes>
+    
+    </BrowserRouter>
 
-        <Switch>
-          <Route path="/items/:id">
-            <Detail item={handleDeleteItem} />
-          </Route>
-          <Route path="/items">
-            <Item items={items} />
-           < Form onSubmit={handleAddItem} />
-          </Route>
-          <Route path="/">
-            <h2>Home</h2>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    // <Router>
+    //   <div>
+    //     <nav>
+    //       <ul>
+    //         <li><Link to="/">Home</Link></li>
+    //         <li><Link to="/items">Items</Link></li>
+    //       </ul>
+    //     </nav>
+
+    //     <Switch>
+    //       <Route path="/items/:id">
+    //         <Detail item={handleDeleteItem} />
+    //       </Route>
+    //       <Route path="/items">
+    //         <Item items={items} />
+    //         < Form onSubmit={handleAddItem} />
+    //       </Route>
+    //       <Route path="/">
+    //         <h2>Home</h2>
+    //       </Route>
+    //     </Switch>
+    //   </div>
+    // </Router>
   );
 };
 

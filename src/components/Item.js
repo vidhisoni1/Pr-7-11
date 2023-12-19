@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Form from './Form';
 
-const Item= ({ items }) => {
+const Item = ({ items, handleAddItem, handleDeleteItem }) => {
   return (
     <div>
-      <h2>Item List</h2>
+      <Form handleAddItem={handleAddItem} />
       <ul>
         {items.map(item => (
           <li key={item.id}>
-            <Link to={`/items/${item.id}`}>{item.name}</Link>
+            <div>{item.name} <button onClick={() => handleDeleteItem(item.id)}>Delete</button></div>
           </li>
         ))}
       </ul>
